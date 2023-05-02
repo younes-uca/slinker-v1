@@ -1,0 +1,56 @@
+
+<p-dialog [(visible)]="viewDialog" [style]="{width: '70vw'}" header="{{'scrappingOperationItemTabPan' | translate}}" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="{{'{{'scrappingOperationItemTabPan' | translate}}' | translate}}">
+                <div class="grid">
+                    <div class="field col-12 md:col-4">
+                        <label for="1">{{'Scrapping link' | translate}}</label>
+                        <p-dropdown [options]="scrappingLinks" [(ngModel)]="item.scrappingLink" id="1" [disabled]="true" optionLabel="libelle" placeholder="{{'Scrapping link' | translate}}"></p-dropdown>
+                    </div>
+                    <div class="field col-12 md:col-4">
+                        <label for="2">{{'Type produit' | translate}}</label>
+                        <p-dropdown [options]="typeProduits" [(ngModel)]="item.typeProduit" id="2" [disabled]="true" optionLabel="libelle" placeholder="{{'Type produit' | translate}}"></p-dropdown>
+                    </div>
+                    <div class="field col-12 md:col-4">
+                        <label for="3">{{'Prix' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="3" [disabled]="true" placeholder="{{'Prix' | translate}}" [(ngModel)]="item.prix"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-4">
+                        <label for="4">{{'Stock' | translate}}</label>
+                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'Stock' | translate}}" autofocus  id="4" [(ngModel)]="item.stock">
+                    </div>
+                    <div class="field col-12 md:col-4">
+                        <label for="5">{{'Image' | translate}}</label>
+                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'Image' | translate}}" autofocus  id="5" [(ngModel)]="item.image">
+                    </div>
+                    <div class="field col-12 md:col-4">
+                        <label for="6">{{'Description' | translate}}</label>
+                        <textarea id="6" pInputTextarea rows="5" cols="30" [disabled]="true" placeholder="{{'Description' | translate}}"  [(ngModel)]="item.description"></textarea>
+                    </div>
+                    <div class="field col-12 md:col-4">
+                        <label for="7">{{'Review' | translate}}</label>
+                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'Review' | translate}}" autofocus  id="7" [(ngModel)]="item.review">
+                    </div>
+                    <div class="field col-12 md:col-4">
+                        <label for="8">{{'Scrapping operation' | translate}}</label>
+                        <p-dropdown [options]="scrappingOperations" [(ngModel)]="item.scrappingOperation" id="8" [disabled]="true" optionLabel="id" placeholder="{{'Scrapping operation' | translate}}"></p-dropdown>
+                    </div>
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="grid-footer">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-outlined" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+
+
+

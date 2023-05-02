@@ -1,0 +1,68 @@
+
+<p-dialog [(visible)]="viewDialog" [style]="{width: '70vw'}" header="{{'subscriptionTabPan' | translate}}" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="{{'{{'subscriptionTabPan' | translate}}' | translate}}">
+                <div class="grid">
+                    <div class="field col-12 md:col-3">
+                        <label for="1">{{'Date debut' | translate}}</label>
+                        <p-calendar id="1" [disabled]="true"  [showTime]="true" [showSeconds]="false" placeholder="{{'Date debut' | translate}}"  [(ngModel)]="item.dateDebut" dateFormat="{{dateFormat}}"></p-calendar>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="2">{{'Date fin' | translate}}</label>
+                        <p-calendar id="2" [disabled]="true"  [showTime]="true" [showSeconds]="false" placeholder="{{'Date fin' | translate}}"  [(ngModel)]="item.dateFin" dateFormat="{{dateFormat}}"></p-calendar>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="3">{{'Delai' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="3" [disabled]="true" placeholder="{{'Delai' | translate}}" [(ngModel)]="item.delai"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="4">{{'Subscription type' | translate}}</label>
+                        <p-dropdown [options]="subscriptionTypes" [(ngModel)]="item.subscriptionType" id="4" [disabled]="true" optionLabel="libelle" placeholder="{{'Subscription type' | translate}}"></p-dropdown>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="5">{{'Subscription pack' | translate}}</label>
+                        <p-dropdown [options]="subscriptionPacks" [(ngModel)]="item.subscriptionPack" id="5" [disabled]="true" optionLabel="libelle" placeholder="{{'Subscription pack' | translate}}"></p-dropdown>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="6">{{'Subscription etat' | translate}}</label>
+                        <p-dropdown [options]="subscriptionEtats" [(ngModel)]="item.subscriptionEtat" id="6" [disabled]="true" optionLabel="libelle" placeholder="{{'Subscription etat' | translate}}"></p-dropdown>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="7">{{'Client' | translate}}</label>
+                        <p-dropdown [options]="clients" [(ngModel)]="item.client" id="7" [disabled]="true" optionLabel="id" placeholder="{{'Client' | translate}}"></p-dropdown>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="8">{{'Nombre page' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="8" [disabled]="true" placeholder="{{'Nombre page' | translate}}" [(ngModel)]="item.nombrePage"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="9">{{'Type paiement' | translate}}</label>
+                        <p-dropdown [options]="typePaiements" [(ngModel)]="item.typePaiement" id="9" [disabled]="true" optionLabel="libelle" placeholder="{{'Type paiement' | translate}}"></p-dropdown>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="10">{{'Montant paye' | translate}}</label>
+                        <p-inputNumber class="mb-2 mr-2" id="10" [disabled]="true" placeholder="{{'Montant paye' | translate}}" [(ngModel)]="item.montantPaye"></p-inputNumber>
+                    </div>
+                    <div class="field col-12 md:col-3">
+                        <label for="11">{{'Date paiement' | translate}}</label>
+                        <p-calendar id="11" [disabled]="true"  [showTime]="true" [showSeconds]="false" placeholder="{{'Date paiement' | translate}}"  [(ngModel)]="item.datePaiement" dateFormat="{{dateFormat}}"></p-calendar>
+                    </div>
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="grid-footer">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-outlined" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+
+
+

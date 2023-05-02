@@ -1,0 +1,150 @@
+
+<p-dialog [(visible)]="viewDialog" [style]="{width: '70vw'}" header="{{'clientTabPan' | translate}}" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="{{'{{'clientTabPan' | translate}}' | translate}}">
+                <div class="grid">
+                    <div class="field col-12 md:col-6">
+                        <label for="1">{{'Nom' | translate}}</label>
+                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'Nom' | translate}}" autofocus  id="1" [(ngModel)]="item.nom">
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <label for="2">{{'Prenom' | translate}}</label>
+                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'Prenom' | translate}}" autofocus  id="2" [(ngModel)]="item.prenom">
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <label for="3">{{'Password' | translate}}</label>
+                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'Password' | translate}}" autofocus  id="3" [(ngModel)]="item.password">
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <label for="4">{{'Email' | translate}}</label>
+                        <input class="mb-2 mr-2" type="text" pInputText [disabled]="true" placeholder="{{'Email' | translate}}" autofocus  id="4" [(ngModel)]="item.email">
+                    </div>
+                    <div class="field col-12 md:col-6">
+                        <label for="5">{{'Statut client' | translate}}</label>
+                        <p-dropdown [options]="statutClients" [(ngModel)]="item.statutClient" id="5" [disabled]="true" optionLabel="libelle" placeholder="{{'Statut client' | translate}}"></p-dropdown>
+                    </div>
+                </div>
+            </p-tabPanel>
+
+            <p-tabPanel header="{{'clientAffliates' | translate}}">
+                <div class="grid">
+                    <div class="col">
+                        <div class="card">
+                            <p-table [value]="item.affliates" [scrollable]="true" scrollHeight="200px">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>Code</th>
+                                        <th>Libelle</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-p>
+                                    <tr>
+                                        <td>{{p.code}}</td>
+                                        <td>{{p.libelle}}</td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </div>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="{{'clientWebSites' | translate}}">
+                <div class="grid">
+                    <div class="col">
+                        <div class="card">
+                            <p-table [value]="item.webSites" [scrollable]="true" scrollHeight="200px">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>Url</th>
+                                        <th>Libelle</th>
+                                        <th>Json summary</th>
+                                        <th>Statut web site</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-p>
+                                    <tr>
+                                        <td>{{p.url}}</td>
+                                        <td>{{p.libelle}}</td>
+                                        <td>{{p.jsonSummary}}</td>
+                                        <td>{{p.statutWebSite?.libelle}}</td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </div>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="{{'clientNotificationDetails' | translate}}">
+                <div class="grid">
+                    <div class="col">
+                        <div class="card">
+                            <p-table [value]="item.notificationDetails" [scrollable]="true" scrollHeight="200px">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>Notification</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-p>
+                                    <tr>
+                                        <td>{{p.notification?.id}}</td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </div>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="{{'clientSubscriptions' | translate}}">
+                <div class="grid">
+                    <div class="col">
+                        <div class="card">
+                            <p-table [value]="item.subscriptions" [scrollable]="true" scrollHeight="200px">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>Date debut</th>
+                                        <th>Date fin</th>
+                                        <th>Delai</th>
+                                        <th>Subscription type</th>
+                                        <th>Subscription pack</th>
+                                        <th>Subscription etat</th>
+                                        <th>Nombre page</th>
+                                        <th>Type paiement</th>
+                                        <th>Montant paye</th>
+                                        <th>Date paiement</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-p>
+                                    <tr>
+                                        <td>{{p.dateDebut | date: dateFormatColumn}}</td>
+                                        <td>{{p.dateFin | date: dateFormatColumn}}</td>
+                                        <td>{{p.delai}}</td>
+                                        <td>{{p.subscriptionType?.libelle}}</td>
+                                        <td>{{p.subscriptionPack?.libelle}}</td>
+                                        <td>{{p.subscriptionEtat?.libelle}}</td>
+                                        <td>{{p.nombrePage}}</td>
+                                        <td>{{p.typePaiement?.libelle}}</td>
+                                        <td>{{p.montantPaye}}</td>
+                                        <td>{{p.datePaiement | date: dateFormatColumn}}</td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </div>
+                </div>
+            </p-tabPanel>
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="grid-footer">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-outlined" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+
+
+

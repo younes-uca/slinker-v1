@@ -1,0 +1,134 @@
+        <p-dialog [(visible)]="editDialog" [style]="{width: '70vw'}" header="{{'subscriptionTabPan' | translate}}" [modal]="true" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+            <ng-template pTemplate="content" >
+                <p-tabView>
+                    <p-tabPanel header="{{'{{'subscriptionTabPan' | translate}}' | translate}}">
+                        <div class="grid">
+
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="1">{{'subscriptionDateDebut' | translate}}</label>
+                                            <p-calendar appendTo="body" id="1"   [showTime]="true" [showSeconds]="false" placeholder="{{'subscriptionDateDebut' | translate}}"  [(ngModel)]="item.dateDebut"
+                                                      >
+                                            </p-calendar>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="2">{{'subscriptionDateFin' | translate}}</label>
+                                            <p-calendar appendTo="body" id="2"   [showTime]="true" [showSeconds]="false" placeholder="{{'subscriptionDateFin' | translate}}"  [(ngModel)]="item.dateFin"
+                                                      >
+                                            </p-calendar>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="3">{{'subscriptionDelai' | translate}}</label>
+                                            <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="3"
+                                                           placeholder="{{'subscriptionDelai' | translate}}" [(ngModel)]="item.delai"  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+                                    <div class="field col-11 md:col-2">
+                                            <label for="4">{{'subscriptionSubscriptionType' | translate}}</label>
+                                            <p-dropdown   appendTo="body" [options]="subscriptionTypes" [(ngModel)]="item.subscriptionType" id="4"[filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true" optionLabel="libelle" placeholder="{{'subscriptionSubscriptionType' | translate}}"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+                                        <div class="col-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button" icon="pi pi-plus" (click)="openCreateSubscriptionType('SubscriptionType')" class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+
+                                    <div class="field col-11 md:col-2">
+                                            <label for="5">{{'subscriptionSubscriptionPack' | translate}}</label>
+                                            <p-dropdown   appendTo="body" [options]="subscriptionPacks" [(ngModel)]="item.subscriptionPack" id="5"[filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true" optionLabel="libelle" placeholder="{{'subscriptionSubscriptionPack' | translate}}"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+                                        <div class="col-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button" icon="pi pi-plus" (click)="openCreateSubscriptionPack('SubscriptionPack')" class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+
+                                    <div class="field col-11 md:col-2">
+                                            <label for="6">{{'subscriptionSubscriptionEtat' | translate}}</label>
+                                            <p-dropdown   appendTo="body" [options]="subscriptionEtats" [(ngModel)]="item.subscriptionEtat" id="6"[filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true" optionLabel="libelle" placeholder="{{'subscriptionSubscriptionEtat' | translate}}"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+                                        <div class="col-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button" icon="pi pi-plus" (click)="openCreateSubscriptionEtat('SubscriptionEtat')" class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+
+                                    <div class="field col-11 md:col-2">
+                                            <label for="7">{{'subscriptionClient' | translate}}</label>
+                                            <p-dropdown   appendTo="body" [options]="clients" [(ngModel)]="item.client" id="7"[filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true" optionLabel="id" placeholder="{{'subscriptionClient' | translate}}"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="8">{{'subscriptionNombrePage' | translate}}</label>
+                                            <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="8"
+                                                           placeholder="{{'subscriptionNombrePage' | translate}}" [(ngModel)]="item.nombrePage"  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+                                    <div class="field col-11 md:col-2">
+                                            <label for="9">{{'subscriptionTypePaiement' | translate}}</label>
+                                            <p-dropdown   appendTo="body" [options]="typePaiements" [(ngModel)]="item.typePaiement" id="9"[filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true" optionLabel="libelle" placeholder="{{'subscriptionTypePaiement' | translate}}"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+                                        <div class="col-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button" icon="pi pi-plus" (click)="openCreateTypePaiement('TypePaiement')" class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="10">{{'subscriptionMontantPaye' | translate}}</label>
+                                            <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="10"
+                                                           placeholder="{{'subscriptionMontantPaye' | translate}}" [(ngModel)]="item.montantPaye"  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-3">
+                                            <label for="11">{{'subscriptionDatePaiement' | translate}}</label>
+                                            <p-calendar appendTo="body" id="11"   [showTime]="true" [showSeconds]="false" placeholder="{{'subscriptionDatePaiement' | translate}}"  [(ngModel)]="item.datePaiement"
+                                                      >
+                                            </p-calendar>
+                                            
+                                        </div>
+                        </div>
+                    </p-tabPanel>
+
+                </p-tabView>
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="grid-footer">
+                        <div>
+                            <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-outlined" (click)="hideEditDialog()"></button>
+                        </div>
+                    <div>
+                        <button pButton pRipple label="Valider" icon="pi pi-check" style="margin:10px" (click)="edit()"></button>
+                    </div>
+                </div>
+            </ng-template>
+
+                    <app-subscription-type-create-admin></app-subscription-type-create-admin>
+                    <app-subscription-pack-create-admin></app-subscription-pack-create-admin>
+                    <app-subscription-etat-create-admin></app-subscription-etat-create-admin>
+                    <app-type-paiement-create-admin></app-type-paiement-create-admin>
+
+
+    </p-dialog>

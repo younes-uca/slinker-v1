@@ -1,0 +1,115 @@
+        <p-dialog [(visible)]="editDialog" [style]="{width: '70vw'}" header="{{'webSiteTabPan' | translate}}" [modal]="true" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+            <ng-template pTemplate="content" >
+                <p-tabView>
+                    <p-tabPanel header="{{'{{'webSiteTabPan' | translate}}' | translate}}">
+                        <div class="grid">
+
+
+                                        <div class="field col-12 md:col-6">
+                                            <label for="1">{{'webSiteUrl' | translate}}<span style="color: red;">*</span></label>
+                                            <input   appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="{{'webSiteUrl' | translate}}" id="1" [(ngModel)]="item.url"
+                                                    [ngClass]="{'ng-invalid ng-dirty' : !validWebSiteUrl}"  />
+                                            <small class='p-error' *ngIf='!validWebSiteUrl'>Url est obligatoire.</small>
+                                        </div>
+
+                                        <div class="field col-12 md:col-6">
+                                            <label for="2">{{'webSiteLibelle' | translate}}</label>
+                                            <input   appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="{{'webSiteLibelle' | translate}}" id="2" [(ngModel)]="item.libelle"
+                                                     />
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-6">
+                                            <label for="3">{{'webSiteJsonSummary' | translate}}</label>
+                                            <input   appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="{{'webSiteJsonSummary' | translate}}" id="3" [(ngModel)]="item.jsonSummary"
+                                                     />
+                                            
+                                        </div>
+
+                                    <div class="field col-11 md:col-5">
+                                            <label for="4">{{'webSiteStatutWebSite' | translate}}</label>
+                                            <p-dropdown   appendTo="body" [options]="statutWebSites" [(ngModel)]="item.statutWebSite" id="4"[filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true" optionLabel="libelle" placeholder="{{'webSiteStatutWebSite' | translate}}"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+                                        <div class="col-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button" icon="pi pi-plus" (click)="openCreateStatutWebSite('StatutWebSite')" class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+
+
+                                    <div class="field col-11 md:col-5">
+                                            <label for="6">{{'webSiteClient' | translate}}</label>
+                                            <p-dropdown   appendTo="body" [options]="clients" [(ngModel)]="item.client" id="6"[filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true" optionLabel="id" placeholder="{{'webSiteClient' | translate}}"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+                        </div>
+                    </p-tabPanel>
+
+                            <p-tabPanel header="{{'webSiteScrappingLinks' | translate}}">
+                                        <div class="grid">
+                                            <div class="col">
+                                                            <div class="field col-12 md:col-6">
+                                                                <label for="1">Code<span style="color: red;">*</span></label>
+                                                                <input appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="Code"
+                                                                       id="1" [(ngModel)]="scrappingLinksElement.code"
+                                                                       autofocus  [ngClass]="{'ng-invalid ng-dirty' : !validScrappingLinksCode}"  >
+                                                                <small class='p-error' *ngIf='!validScrappingLinksCode'>Code est obligatoire.</small>
+                                                            </div>
+                                                            <div class="field col-12 md:col-6">
+                                                                <label for="2">Libelle<span style="color: red;">*</span></label>
+                                                                <input appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="Libelle"
+                                                                       id="2" [(ngModel)]="scrappingLinksElement.libelle"
+                                                                       autofocus  [ngClass]="{'ng-invalid ng-dirty' : !validScrappingLinksLibelle}"  >
+                                                                <small class='p-error' *ngIf='!validScrappingLinksLibelle'>Libelle est obligatoire.</small>
+                                                            </div>
+                                                <div class="field col-12 md:col-1">
+                                                    <button pButton pRipple type="button" icon="pi pi-plus" class="mt-4" label="OK" (click)="addScrappingLinks()"></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="card">
+                                                <p-table [value]="item.scrappingLinks" [scrollable]="true" scrollHeight="200px">
+                                                    <ng-template pTemplate="header">
+                                                        <tr>
+                                                                        <th>Code</th>
+                                                                        <th>Libelle</th>
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                    </ng-template>
+                                                    <ng-template pTemplate="body" let-p>
+                                                        <tr>
+                                                                        <td>{{p.code}}</td>
+                                                                        <td>{{p.libelle}}</td>
+                                                            <td>
+                                                                <button (click)="deleteScrappingLink(p)" pButton type="button" icon="pi pi-times"  class="p-button-rounded p-button-danger"></button>
+                                                                <button (click)="editScrappingLink(p)" pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"></button>
+                                                            </td>
+                                                        </tr>
+                                                    </ng-template>
+                                                </p-table>
+                                            </div>
+                                        </div>
+                            </p-tabPanel>
+                </p-tabView>
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="grid-footer">
+                        <div>
+                            <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-outlined" (click)="hideEditDialog()"></button>
+                        </div>
+                    <div>
+                        <button pButton pRipple label="Valider" icon="pi pi-check" style="margin:10px" (click)="edit()"></button>
+                    </div>
+                </div>
+            </ng-template>
+
+                    <app-statut-web-site-create-admin></app-statut-web-site-create-admin>
+
+
+    </p-dialog>

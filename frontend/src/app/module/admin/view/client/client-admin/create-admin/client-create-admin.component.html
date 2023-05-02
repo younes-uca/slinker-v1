@@ -1,0 +1,313 @@
+        <p-dialog [(visible)]="createDialog" [style]="{width: '70vw'}" header="{{'clientTabPan' | translate}}" [modal]="true" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+            <ng-template pTemplate="content" >
+                        <p-tabView>
+                            <p-tabPanel header="{{'{{'clientTabPan' | translate}}' | translate}}">
+                                <div class="grid">
+
+                                                <div class="field col-12 md:col-6">
+                                                    <label for="1">{{'clientNom' | translate}}<span style="color: red;">*</span></label>
+                                                    <input class="mb-2 mr-2" type="text" pInputText  placeholder="{{'clientNom' | translate}}" id="1" [(ngModel)]="item.nom"
+                                                            [ngClass]="{'ng-invalid ng-dirty' : !validClientNom}"  />
+                                                    <small class='p-error' *ngIf='!validClientNom'>Nom est obligatoire.</small>
+                                                </div>
+
+
+
+                                                <div class="field col-12 md:col-6">
+                                                    <label for="2">{{'clientPrenom' | translate}}<span style="color: red;">*</span></label>
+                                                    <input class="mb-2 mr-2" type="text" pInputText  placeholder="{{'clientPrenom' | translate}}" id="2" [(ngModel)]="item.prenom"
+                                                            [ngClass]="{'ng-invalid ng-dirty' : !validClientPrenom}"  />
+                                                    <small class='p-error' *ngIf='!validClientPrenom'>Prenom est obligatoire.</small>
+                                                </div>
+
+
+
+                                                <div class="field col-12 md:col-6">
+                                                    <label for="3">{{'clientPassword' | translate}}<span style="color: red;">*</span></label>
+                                                    <input class="mb-2 mr-2" type="text" pInputText  placeholder="{{'clientPassword' | translate}}" id="3" [(ngModel)]="item.password"
+                                                            [ngClass]="{'ng-invalid ng-dirty' : !validClientPassword}"  />
+                                                    <small class='p-error' *ngIf='!validClientPassword'>Password est obligatoire.</small>
+                                                </div>
+
+
+
+                                                <div class="field col-12 md:col-6">
+                                                    <label for="4">{{'clientEmail' | translate}}<span style="color: red;">*</span></label>
+                                                    <input class="mb-2 mr-2" type="text" pInputText  placeholder="{{'clientEmail' | translate}}" id="4" [(ngModel)]="item.email"
+                                                            [ngClass]="{'ng-invalid ng-dirty' : !validClientEmail}"  />
+                                                    <small class='p-error' *ngIf='!validClientEmail'>Email est obligatoire.</small>
+                                                </div>
+
+
+
+                                            <div class="field col-11 md:col-5">
+                                                <label for="5">{{'clientStatutClient' | translate}}</label>
+                                                <p-dropdown  appendTo="body"  [options]="statutClients" [(ngModel)]="item.statutClient" id="5" [filter]="true" filterMatchMode="contains"
+                                                        [showClear]="true" optionLabel="libelle" placeholder="{{'clientStatutClient' | translate}}"  >
+                                                </p-dropdown>
+                                                
+                                            </div>
+                                                <div class="col-1">
+                                                    <label></label>
+                                                    <button pButton pRipple type="button" icon="pi pi-plus" (click)="openCreateStatutClient('StatutClient')" class="p-button-success one-colonne-btn-success-align"></button>
+                                                </div>
+                                            <div class="field col-12  md:col-6">
+                                                <label>Notification</label>
+                                                <p-multiSelect [options]="notificationDetails" [(ngModel)]="item.notificationDetails" itemSize="30" [virtualScroll]="true"
+                                                                                                                          defaultLabel="Select un notification" optionLabel="notification.id"  display="chip"></p-multiSelect>
+                                            </div>
+                                </div>
+                            </p-tabPanel>
+                                    <p-tabPanel header="clientAffliates">
+                                                <div class="p-col">
+                                                    <div class="grid">
+                                                                    <div class="field col-12 md:col-6">
+                                                                        <label for="1">Code<span style="color: red;">*</span></label>
+                                                                        <input class="mb-2 mr-2" type="text" pInputText placeholder="Code"
+                                                                               id="1" [(ngModel)]="affliatesElement.code" autofocus  [ngClass]="{'ng-invalid ng-dirty' : !validAffliatesCode}"  >
+                                                                        <small class='p-error' *ngIf='!validAffliatesCode'>Code est obligatoire.</small>
+                                                                    </div>
+                                                                    <div class="field col-12 md:col-6">
+                                                                        <label for="2">Libelle<span style="color: red;">*</span></label>
+                                                                        <input class="mb-2 mr-2" type="text" pInputText placeholder="Libelle"
+                                                                               id="2" [(ngModel)]="affliatesElement.libelle" autofocus  [ngClass]="{'ng-invalid ng-dirty' : !validAffliatesLibelle}"  >
+                                                                        <small class='p-error' *ngIf='!validAffliatesLibelle'>Libelle est obligatoire.</small>
+                                                                    </div>
+                                                        <div class="field col-12 md:col-1">
+                                                            <button pButton pRipple type="button" icon="pi pi-plus" class="mt-4" label="OK" (click)="addAffliates()"></button>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="p-col">
+                                                    <div class="card">
+                                                        <p-table [value]="item.affliates" [scrollable]="true" scrollHeight="200px">
+                                                            <ng-template pTemplate="header">
+                                                                <tr>
+                                                                                <th>Code</th>
+                                                                                <th>Libelle</th>
+                                                                    <th>Actions</th>
+                                                                </tr>
+                                                            </ng-template>
+                                                            <ng-template pTemplate="body" let-p>
+                                                                <tr>
+                                                                                <td>{{p.code}}</td>
+                                                                                <td>{{p.libelle}}</td>
+                                                                    <td>
+                                                                        <button (click)="deleteAffliate(p)" pButton type="button" icon="pi pi-times"  class="p-button-rounded p-button-danger"></button>
+                                                                        <button (click)="editAffliate(p)" pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"></button>
+                                                                    </td>
+                                                                </tr>
+                                                            </ng-template>
+                                                        </p-table>
+                                                    </div>
+
+                                                </div>
+                                    </p-tabPanel>
+
+                                    <p-tabPanel header="clientWebSites">
+                                        <p-tabView [(activeIndex)]="activeTab">
+                                            <p-tabPanel header="Création">
+                                                    <div class="grid">
+                                                                    <div class="field col-12 md:col-4">
+                                                                        <label for="1">Url<span style="color: red;">*</span></label>
+                                                                        <input class="mb-2 mr-2" type="text" pInputText placeholder="Url"
+                                                                               id="1" [(ngModel)]="webSitesElement.url" autofocus  [ngClass]="{'ng-invalid ng-dirty' : !validWebSitesUrl}"  >
+                                                                        <small class='p-error' *ngIf='!validWebSitesUrl'>Url est obligatoire.</small>
+                                                                    </div>
+                                                                    <div class="field col-12 md:col-4">
+                                                                        <label for="2">Libelle</label>
+                                                                        <input class="mb-2 mr-2" type="text" pInputText placeholder="Libelle"
+                                                                               id="2" [(ngModel)]="webSitesElement.libelle" autofocus   >
+                                                                        
+                                                                    </div>
+                                                                    <div class="field col-12 md:col-4">
+                                                                        <label for="3">Json summary</label>
+                                                                        <input class="mb-2 mr-2" type="text" pInputText placeholder="Json summary"
+                                                                               id="3" [(ngModel)]="webSitesElement.jsonSummary" autofocus   >
+                                                                        
+                                                                    </div>
+                                                                    <div class="field col-11 md:col-3">
+                                                                        <label>Statut web site</label>
+                                                                        <p-dropdown  appendTo="body"  [options]="statutWebSites" [(ngModel)]="webSitesElement.statutWebSite"
+                                                                                     id="4"  [filter]="true" filterMatchMode="contains" [showClear]="true" optionLabel="libelle"
+                                                                                     placeholder="Statut web site"  >
+                                                                        </p-dropdown>
+                                                                        
+                                                                    </div>
+                                                        <div class="field col-12 md:col-1">
+                                                            <button pButton pRipple type="button" icon="pi pi-plus" class="mt-4" label="OK" (click)="addWebSites()"></button>
+                                                        </div>
+
+                                                    </div>
+                                            </p-tabPanel>
+                                            <p-tabPanel header="Liste {{item.webSites?.length > 0 ? '(' + item.webSites?.length + ')' : ''}}">
+                                                    <div class="card">
+                                                        <p-table [value]="item.webSites" [scrollable]="true" scrollHeight="200px">
+                                                            <ng-template pTemplate="header">
+                                                                <tr>
+                                                                                <th>Url</th>
+                                                                                <th>Libelle</th>
+                                                                                <th>Json summary</th>
+                                                                                <th>Statut web site</th>
+                                                                    <th>Actions</th>
+                                                                </tr>
+                                                            </ng-template>
+                                                            <ng-template pTemplate="body" let-p>
+                                                                <tr>
+                                                                                <td>{{p.url}}</td>
+                                                                                <td>{{p.libelle}}</td>
+                                                                                <td>{{p.jsonSummary}}</td>
+                                                                            <td>{{p.statutWebSite?.libelle}}</td>
+                                                                    <td>
+                                                                        <button (click)="deleteWebSite(p)" pButton type="button" icon="pi pi-times"  class="p-button-rounded p-button-danger"></button>
+                                                                        <button (click)="editWebSite(p)" pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"></button>
+                                                                    </td>
+                                                                </tr>
+                                                            </ng-template>
+                                                        </p-table>
+                                                    </div>
+
+                                            </p-tabPanel>
+                                        </p-tabView>
+                                    </p-tabPanel>
+
+                                    <p-tabPanel header="clientSubscriptions">
+                                        <p-tabView [(activeIndex)]="activeTab">
+                                            <p-tabPanel header="Création">
+                                                    <div class="grid">
+                                                                    <div class="field col-12 md:col-4">
+                                                                        <label for="1">Date debut</label>
+                                                                        <p-calendar appendTo="body" id="1"  [showTime]="true" [showSeconds]="false" placeholder="Date debut" [(ngModel)]="subscriptionsElement.dateDebut"
+                                                                                dateFormat="{{dateFormat}}" [showIcon]="true"  ></p-calendar>
+                                                                        
+                                                                    </div>
+                                                                    <div class="field col-12 md:col-4">
+                                                                        <label for="2">Date fin</label>
+                                                                        <p-calendar appendTo="body" id="2"  [showTime]="true" [showSeconds]="false" placeholder="Date fin" [(ngModel)]="subscriptionsElement.dateFin"
+                                                                                dateFormat="{{dateFormat}}" [showIcon]="true"  ></p-calendar>
+                                                                        
+                                                                    </div>
+                                                                    <div class="field col-12 md:col-4">
+                                                                        <label for="3">Delai</label>
+                                                                        <p-inputNumber class="mb-2 mr-2" id="delai" placeholder="Delai"  [(ngModel)]="subscriptionsElement.delai"></p-inputNumber>
+                                                                        
+                                                                    </div>
+                                                                    <div class="field col-11 md:col-3">
+                                                                        <label>Subscription type</label>
+                                                                        <p-dropdown  appendTo="body"  [options]="subscriptionTypes" [(ngModel)]="subscriptionsElement.subscriptionType"
+                                                                                     id="4"  [filter]="true" filterMatchMode="contains" [showClear]="true" optionLabel="libelle"
+                                                                                     placeholder="Subscription type"  >
+                                                                        </p-dropdown>
+                                                                        
+                                                                    </div>
+                                                                    <div class="field col-11 md:col-3">
+                                                                        <label>Subscription pack</label>
+                                                                        <p-dropdown  appendTo="body"  [options]="subscriptionPacks" [(ngModel)]="subscriptionsElement.subscriptionPack"
+                                                                                     id="5"  [filter]="true" filterMatchMode="contains" [showClear]="true" optionLabel="libelle"
+                                                                                     placeholder="Subscription pack"  >
+                                                                        </p-dropdown>
+                                                                        
+                                                                    </div>
+                                                                    <div class="field col-11 md:col-3">
+                                                                        <label>Subscription etat</label>
+                                                                        <p-dropdown  appendTo="body"  [options]="subscriptionEtats" [(ngModel)]="subscriptionsElement.subscriptionEtat"
+                                                                                     id="6"  [filter]="true" filterMatchMode="contains" [showClear]="true" optionLabel="libelle"
+                                                                                     placeholder="Subscription etat"  >
+                                                                        </p-dropdown>
+                                                                        
+                                                                    </div>
+                                                                    <div class="field col-12 md:col-4">
+                                                                        <label for="8">Nombre page</label>
+                                                                        <p-inputNumber class="mb-2 mr-2" id="nombrePage" placeholder="Nombre page"  [(ngModel)]="subscriptionsElement.nombrePage"></p-inputNumber>
+                                                                        
+                                                                    </div>
+                                                                    <div class="field col-11 md:col-3">
+                                                                        <label>Type paiement</label>
+                                                                        <p-dropdown  appendTo="body"  [options]="typePaiements" [(ngModel)]="subscriptionsElement.typePaiement"
+                                                                                     id="9"  [filter]="true" filterMatchMode="contains" [showClear]="true" optionLabel="libelle"
+                                                                                     placeholder="Type paiement"  >
+                                                                        </p-dropdown>
+                                                                        
+                                                                    </div>
+                                                                    <div class="field col-12 md:col-4">
+                                                                        <label for="10">Montant paye</label>
+                                                                        <p-inputNumber class="mb-2 mr-2" id="montantPaye" placeholder="Montant paye"  [(ngModel)]="subscriptionsElement.montantPaye"></p-inputNumber>
+                                                                        
+                                                                    </div>
+                                                                    <div class="field col-12 md:col-4">
+                                                                        <label for="11">Date paiement</label>
+                                                                        <p-calendar appendTo="body" id="11"  [showTime]="true" [showSeconds]="false" placeholder="Date paiement" [(ngModel)]="subscriptionsElement.datePaiement"
+                                                                                dateFormat="{{dateFormat}}" [showIcon]="true"  ></p-calendar>
+                                                                        
+                                                                    </div>
+                                                        <div class="field col-12 md:col-1">
+                                                            <button pButton pRipple type="button" icon="pi pi-plus" class="mt-4" label="OK" (click)="addSubscriptions()"></button>
+                                                        </div>
+
+                                                    </div>
+                                            </p-tabPanel>
+                                            <p-tabPanel header="Liste {{item.subscriptions?.length > 0 ? '(' + item.subscriptions?.length + ')' : ''}}">
+                                                    <div class="card">
+                                                        <p-table [value]="item.subscriptions" [scrollable]="true" scrollHeight="200px">
+                                                            <ng-template pTemplate="header">
+                                                                <tr>
+                                                                                <th>Date debut</th>
+                                                                                <th>Date fin</th>
+                                                                                <th>Delai</th>
+                                                                                <th>Subscription type</th>
+                                                                                <th>Subscription pack</th>
+                                                                                <th>Subscription etat</th>
+                                                                                <th>Nombre page</th>
+                                                                                <th>Type paiement</th>
+                                                                                <th>Montant paye</th>
+                                                                                <th>Date paiement</th>
+                                                                    <th>Actions</th>
+                                                                </tr>
+                                                            </ng-template>
+                                                            <ng-template pTemplate="body" let-p>
+                                                                <tr>
+                                                                                <td>{{p.dateDebut | date: dateFormatColumn}}</td>
+                                                                                <td>{{p.dateFin | date: dateFormatColumn}}</td>
+                                                                                <td>{{p.delai}}</td>
+                                                                            <td>{{p.subscriptionType?.libelle}}</td>
+                                                                            <td>{{p.subscriptionPack?.libelle}}</td>
+                                                                            <td>{{p.subscriptionEtat?.libelle}}</td>
+                                                                                <td>{{p.nombrePage}}</td>
+                                                                            <td>{{p.typePaiement?.libelle}}</td>
+                                                                                <td>{{p.montantPaye}}</td>
+                                                                                <td>{{p.datePaiement | date: dateFormatColumn}}</td>
+                                                                    <td>
+                                                                        <button (click)="deleteSubscription(p)" pButton type="button" icon="pi pi-times"  class="p-button-rounded p-button-danger"></button>
+                                                                        <button (click)="editSubscription(p)" pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"></button>
+                                                                    </td>
+                                                                </tr>
+                                                            </ng-template>
+                                                        </p-table>
+                                                    </div>
+
+                                            </p-tabPanel>
+                                        </p-tabView>
+                                    </p-tabPanel>
+
+
+                        </p-tabView>
+
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="grid-step">
+                        <div style="margin-left: auto;">
+                            <button pButton pRipple label="Valider"  icon="pi pi-check" style="margin:10px" (click)="save()"></button>
+                        </div>
+                        <div>
+                            <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-outlined" (click)="hideCreateDialog()"></button>
+                        </div>
+
+                </div>
+            </ng-template>
+
+            <app-statut-client-create-admin></app-statut-client-create-admin>
+
+
+    </p-dialog>

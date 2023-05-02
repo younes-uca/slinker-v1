@@ -1,0 +1,164 @@
+        <p-dialog [(visible)]="editDialog" [style]="{width: '70vw'}" header="{{'scrappingOperationTabPan' | translate}}" [modal]="true" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+            <ng-template pTemplate="content" >
+                <p-tabView>
+                    <p-tabPanel header="{{'{{'scrappingOperationTabPan' | translate}}' | translate}}">
+                        <div class="grid">
+
+
+                                        <div class="field col-12 md:col-6">
+                                            <label for="1">{{'scrappingOperationDateDebutScrappingOperation' | translate}}<span style="color: red;">*</span></label>
+                                            <p-calendar appendTo="body" id="1"   [showTime]="true" [showSeconds]="false" placeholder="{{'scrappingOperationDateDebutScrappingOperation' | translate}}"  [(ngModel)]="item.dateDebutScrappingOperation"
+                                                     [ngClass]="{'ng-invalid ng-dirty' : !validScrappingOperationDateDebutScrappingOperation}"  >
+                                            </p-calendar>
+                                            <small class='p-error' *ngIf='!validScrappingOperationDateDebutScrappingOperation'>DateDebutScrappingOperation est obligatoire.</small>
+                                        </div>
+
+                                        <div class="field col-12 md:col-6">
+                                            <label for="2">{{'scrappingOperationDateFinScrappingOperation' | translate}}</label>
+                                            <p-calendar appendTo="body" id="2"   [showTime]="true" [showSeconds]="false" placeholder="{{'scrappingOperationDateFinScrappingOperation' | translate}}"  [(ngModel)]="item.dateFinScrappingOperation"
+                                                      >
+                                            </p-calendar>
+                                            
+                                        </div>
+
+                                    <div class="field col-11 md:col-5">
+                                            <label for="3">{{'scrappingOperationAffliate' | translate}}</label>
+                                            <p-dropdown   appendTo="body" [options]="affliates" [(ngModel)]="item.affliate" id="3"[filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true" optionLabel="libelle" placeholder="{{'scrappingOperationAffliate' | translate}}"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+
+                                    <div class="field col-11 md:col-5">
+                                            <label for="4">{{'scrappingOperationWebSite' | translate}}</label>
+                                            <p-dropdown   appendTo="body" [options]="webSites" [(ngModel)]="item.webSite" id="4"[filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true" optionLabel="url" placeholder="{{'scrappingOperationWebSite' | translate}}"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+
+                                        <div class="field col-12 md:col-6">
+                                            <label for="5">{{'scrappingOperationUrl' | translate}}</label>
+                                            <input   appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="{{'scrappingOperationUrl' | translate}}" id="5" [(ngModel)]="item.url"
+                                                     />
+                                            
+                                        </div>
+
+                        </div>
+                    </p-tabPanel>
+
+                            <p-tabPanel header="{{'scrappingOperationScrappingOperationItems' | translate}}">
+                                <p-tabView [(activeIndex)]="activeTab">
+                                    <p-tabPanel header="Création">
+                                        <div class="grid">
+                                                            <div class="field col-11 md:col-3">
+                                                                <label>Scrapping link</label>
+                                                                <p-dropdown appendTo="body" [options]="scrappingLinks" [(ngModel)]="scrappingOperationItemsElement.scrappingLink"
+                                                                        id="1"  [filter]="true" filterMatchMode="contains" [showClear]="true"
+                                                                        optionLabel="libelle" placeholder="Scrapping link"  >
+                                                                </p-dropdown>
+                                                                
+                                                            </div>
+                                                            <div class="field col-11 md:col-3">
+                                                                <label>Type produit</label>
+                                                                <p-dropdown appendTo="body" [options]="typeProduits" [(ngModel)]="scrappingOperationItemsElement.typeProduit"
+                                                                        id="2"  [filter]="true" filterMatchMode="contains" [showClear]="true"
+                                                                        optionLabel="libelle" placeholder="Type produit"  >
+                                                                </p-dropdown>
+                                                                
+                                                            </div>
+                                                            <div class="col-1">
+                                                                <label></label>
+                                                                <button pButton pRipple type="button" icon="pi pi-plus" (click)="openCreateTypeProduit('TypeProduit')"  class="p-button-success one-colonne-btn-success-align"></button>
+                                                            </div>
+                                                            <div class="field col-12 md:col-4">
+                                                                <label for="3">Prix</label>
+                                                                <p-inputNumber  appendTo="body" class="mb-2 mr-2" id="prix" [(ngModel)]="scrappingOperationItemsElement.prix" placeholder="Prix"  ></p-inputNumber>
+                                                                
+                                                            </div>
+                                                            <div class="field col-12 md:col-4">
+                                                                <label for="4">Stock</label>
+                                                                <input appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="Stock"
+                                                                       id="4" [(ngModel)]="scrappingOperationItemsElement.stock"
+                                                                       autofocus   >
+                                                                
+                                                            </div>
+                                                            <div class="field col-12 md:col-4">
+                                                                <label for="5">Image</label>
+                                                                <input appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="Image"
+                                                                       id="5" [(ngModel)]="scrappingOperationItemsElement.image"
+                                                                       autofocus   >
+                                                                
+                                                            </div>
+                                                            <div class="field col-12 md:col-4">
+                                                                <label for="6">Description</label>
+                                                                <input appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="Description"
+                                                                       id="6" [(ngModel)]="scrappingOperationItemsElement.description"
+                                                                       autofocus   >
+                                                                
+                                                            </div>
+                                                            <div class="field col-12 md:col-4">
+                                                                <label for="7">Review</label>
+                                                                <input appendTo="body" class="mb-2 mr-2" type="text" pInputText placeholder="Review"
+                                                                       id="7" [(ngModel)]="scrappingOperationItemsElement.review"
+                                                                       autofocus   >
+                                                                
+                                                            </div>
+                                                <div class="field col-12 md:col-1">
+                                                    <button pButton pRipple type="button" icon="pi pi-plus" class="mt-4" label="OK" (click)="addScrappingOperationItems()"></button>
+                                                </div>
+                                        </div>
+                                    </p-tabPanel>
+                                    <p-tabPanel header="Liste {{item.scrappingOperationItems?.length > 0 ? '(' + item.scrappingOperationItems?.length + ')' : ''}}">
+                                            <div class="card">
+                                                <p-table [value]="item.scrappingOperationItems" [scrollable]="true" scrollHeight="200px">
+                                                    <ng-template pTemplate="header">
+                                                        <tr>
+                                                                        <th>Scrapping link</th>
+                                                                        <th>Type produit</th>
+                                                                        <th>Prix</th>
+                                                                        <th>Stock</th>
+                                                                        <th>Image</th>
+                                                                        <th>Description</th>
+                                                                        <th>Review</th>
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                    </ng-template>
+                                                    <ng-template pTemplate="body" let-p>
+                                                        <tr>
+                                                                    <td>{{p.scrappingLink?.libelle}}</td>
+                                                                    <td>{{p.typeProduit?.libelle}}</td>
+                                                                        <td>{{p.prix}}</td>
+                                                                        <td>{{p.stock}}</td>
+                                                                        <td>{{p.image}}</td>
+                                                                        <td>{{p.description}}</td>
+                                                                        <td>{{p.review}}</td>
+                                                            <td>
+                                                                <button (click)="deleteScrappingOperationItem(p)" pButton type="button" icon="pi pi-times"  class="p-button-rounded p-button-danger"></button>
+                                                                <button (click)="editScrappingOperationItem(p)" pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"></button>
+                                                            </td>
+                                                        </tr>
+                                                    </ng-template>
+                                                </p-table>
+                                            </div>
+                                    </p-tabPanel>
+                                </p-tabView>
+                            </p-tabPanel>
+                </p-tabView>
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="grid-footer">
+                        <div>
+                            <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-outlined" (click)="hideEditDialog()"></button>
+                        </div>
+                    <div>
+                        <button pButton pRipple label="Valider" icon="pi pi-check" style="margin:10px" (click)="edit()"></button>
+                    </div>
+                </div>
+            </ng-template>
+
+
+                            <app-type-produit-create-admin></app-type-produit-create-admin>
+
+    </p-dialog>

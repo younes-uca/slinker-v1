@@ -1,0 +1,294 @@
+<div class="grid">
+    <div class="col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                                        <button pButton pRipple label=" {{'new' | translate}}" icon="pi pi-plus" class="p-button-success mr-2 mb-2" (click)="openCreate('Subscription')"></button>
+                    <button [disabled]="isSelectionDisabled()" pButton pRipple label=" {{'delete' | translate}}" icon="pi pi-trash" class="p-button-danger mr-2 mb-2" (click)=deleteMultiple()></button>
+                    <button pButton pRipple label=" {{'search' | translate}}" icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}" class="p-button-warning mr-2 mb-2" (click)="this.showSearch()"></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <p-splitButton label=" {{'export' | translate}}" icon="pi pi-download" styleClass="p-button-help" [model]="excelPdfButons"></p-splitButton>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <p-toolbar *ngIf="findByCriteriaShow">
+
+                <div class="align-form-search">
+
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-calendar class="mr-2" [(ngModel)]="criteria.dateDebutFrom"
+                                    id="1-1"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="1-1">{{'Date debut' | translate}} Min</label>
+                        </span>
+
+                         <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-calendar class="mr-2" [(ngModel)]="criteria.dateDebutTo"
+                                    id="1-2"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="1-2">{{'Date debut' | translate}} Max</label>
+                        </span>
+
+
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-calendar class="mr-2" [(ngModel)]="criteria.dateFinFrom"
+                                    id="2-1"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="2-1">{{'Date fin' | translate}} Min</label>
+                        </span>
+
+                         <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-calendar class="mr-2" [(ngModel)]="criteria.dateFinTo"
+                                    id="2-2"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="2-2">{{'Date fin' | translate}} Max</label>
+                        </span>
+
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.delaiMin" id="3-1"></p-inputNumber>
+                            <label for="3-1">{{'Delai' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.delaiMax" id="3-2"></p-inputNumber>
+                            <label for="3-2">{{'Delai' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-dropdown [options]="subscriptionTypes" [(ngModel)]="criteria.subscriptionType" id="4" [filter]="true"
+                                        [showClear]="true"  placeholder="{{'Subscription type' | translate}}" optionLabel="libelle">
+                            </p-dropdown>
+                        </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-dropdown [options]="subscriptionPacks" [(ngModel)]="criteria.subscriptionPack" id="5" [filter]="true"
+                                        [showClear]="true"  placeholder="{{'Subscription pack' | translate}}" optionLabel="libelle">
+                            </p-dropdown>
+                        </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-dropdown [options]="subscriptionEtats" [(ngModel)]="criteria.subscriptionEtat" id="6" [filter]="true"
+                                        [showClear]="true"  placeholder="{{'Subscription etat' | translate}}" optionLabel="libelle">
+                            </p-dropdown>
+                        </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-dropdown [options]="clients" [(ngModel)]="criteria.client" id="7" [filter]="true"
+                                        [showClear]="true"  placeholder="{{'Client' | translate}}" optionLabel="id">
+                            </p-dropdown>
+                        </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.nombrePageMin" id="8-1"></p-inputNumber>
+                            <label for="8-1">{{'Nombre page' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.nombrePageMax" id="8-2"></p-inputNumber>
+                            <label for="8-2">{{'Nombre page' | translate}} Max</label>
+                       </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-dropdown [options]="typePaiements" [(ngModel)]="criteria.typePaiement" id="9" [filter]="true"
+                                        [showClear]="true"  placeholder="{{'Type paiement' | translate}}" optionLabel="libelle">
+                            </p-dropdown>
+                        </span>
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.montantPayeMin" id="10-1"></p-inputNumber>
+                            <label for="10-1">{{'Montant paye' | translate}} Min</label>
+                        </span>
+                       <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-inputNumber class="mr-2" mode="decimal" [(ngModel)]="criteria.montantPayeMax" id="10-2"></p-inputNumber>
+                            <label for="10-2">{{'Montant paye' | translate}} Max</label>
+                       </span>
+
+                        <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-calendar class="mr-2" [(ngModel)]="criteria.datePaiementFrom"
+                                    id="11-1"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="11-1">{{'Date paiement' | translate}} Min</label>
+                        </span>
+
+                         <span class=" p-float-label mr-3 align-search-items mt-4">
+                            <p-calendar class="mr-2" [(ngModel)]="criteria.datePaiementTo"
+                                    id="11-2"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="11-2">{{'Date paiement' | translate}} Max</label>
+                        </span>
+
+                </div>
+
+                <div class="align-search-button">
+                    <button pButton pRipple label="{{'validate' | translate}}" icon="pi pi-sort-amount-down" class="p-button-info mr-2" (click)="findPaginatedByCriteria()"></button>
+                </div>
+            </p-toolbar>
+
+
+            <p-table #dt [value]="items" [columns]="cols" [rows]="8" [paginator]="false"
+                    [globalFilterFields]="['dateDebut', 'dateFin', 'delai', 'subscriptionTypelibelle', 'subscriptionPacklibelle', 'subscriptionEtatlibelle', 'clientid', 'nombrePage', 'typePaiementlibelle', 'montantPaye', 'datePaiement']" [(selection)]="selections"
+                    [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+                    currentPageReportTemplate="{{'Les éléments de {first} à {last} sur {totalRecords} ' | translate}}"
+                    [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" selectionMode="multiple">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column flex-row justify-content-between table-header">
+                        <h5 class="p-m-0">{{'subscriptionHeader' | translate}}</h5>
+                        <span class="p-input-icon-left ml-auto">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" placeholder="{{'searchInput' | translate}}" (input)="dt.filterGlobal($event.target.value, 'contains')"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                                
+                        <th pSortableColumn="dateDebut">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Date debut' | translate}}</span>
+                                <p-sortIcon field="dateDebut"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="dateFin">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Date fin' | translate}}</span>
+                                <p-sortIcon field="dateFin"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="delai">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Delai' | translate}}</span>
+                                <p-sortIcon field="delai"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="subscriptionType">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Subscription type' | translate}}</span>
+                                <p-sortIcon field="subscriptionType"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="subscriptionPack">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Subscription pack' | translate}}</span>
+                                <p-sortIcon field="subscriptionPack"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="subscriptionEtat">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Subscription etat' | translate}}</span>
+                                <p-sortIcon field="subscriptionEtat"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="client">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Client' | translate}}</span>
+                                <p-sortIcon field="client"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="nombrePage">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Nombre page' | translate}}</span>
+                                <p-sortIcon field="nombrePage"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                
+                        <th pSortableColumn="typePaiement">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Type paiement' | translate}}</span>
+                                <p-sortIcon field="typePaiement"></p-sortIcon>
+                            </div>
+                        </th>
+                                
+                                <!-- 
+                        <th pSortableColumn="montantPaye">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Montant paye' | translate}}</span>
+                                <p-sortIcon field="montantPaye"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                                <!-- 
+                        <th pSortableColumn="datePaiement">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Date paiement' | translate}}</span>
+                                <p-sortIcon field="datePaiement"></p-sortIcon>
+                            </div>
+                        </th>
+                                --> 
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-element>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="element"></p-tableCheckbox>
+                        </td>
+                            
+                        <td>{{element.dateDebut | date :'dd/MM/yyyy HH:mm' }}</td>
+                            
+                            
+                        <td>{{element.dateFin | date :'dd/MM/yyyy HH:mm' }}</td>
+                            
+                            
+                        <td>{{element.delai}}</td>
+                            
+                            
+                        <td>{{element.subscriptionType?.libelle}}</td>
+                            
+                            
+                        <td>{{element.subscriptionPack?.libelle}}</td>
+                            
+                            
+                        <td>{{element.subscriptionEtat?.libelle}}</td>
+                            
+                            
+                        <td>{{element.client?.id}}</td>
+                            
+                            
+                        <td>{{element.nombrePage}}</td>
+                            
+                            
+                        <td>{{element.typePaiement?.libelle}}</td>
+                            
+                             <!-- 
+                        <td>{{element.montantPaye}}</td>
+                             --> 
+                             <!-- 
+                        <td>{{element.datePaiement | date :'dd/MM/yyyy HH:mm' }}</td>
+                             --> 
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil"  class="p-button-rounded p-button-success mr-2" (click)="edit(element)"></button>
+                            <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info mr-2" (click)="view(element)"></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger mr-2" (click)="delete(element)"></button>
+                            <button pButton pRipple icon="pi pi-copy" class="p-button-rounded p-button-raised p-button-warning" (click)="duplicate(element)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="summary">
+                    <p-paginator  [rows]="10" [totalRecords]="totalRecords" (onPageChange)="onPage($event)"></p-paginator>
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        En totale il {{items ? totalRecords == 1 ? 'y a' : 'y a' : 'y a' }} {{items ? totalRecords : 0 }} {{items ? totalRecords == 1 ? 'subscription' : 'subscriptions' : 0 }}.
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <app-subscription-create-admin></app-subscription-create-admin>
+        <app-subscription-edit-admin></app-subscription-edit-admin>
+        <app-subscription-view-admin></app-subscription-view-admin>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+</div>
